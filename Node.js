@@ -7,16 +7,20 @@ const port = 3000;
 require('dotenv').config();
 
 app.use(cors({
-    origin: 'http://127.0.0.1:5500'  // Allow only this domain
+    origin: ['http://127.0.0.1:5500', 'https://frontend-todo-jade.vercel.app'], // Allow local and deployed frontend
+    methods: 'GET,POST,DELETE',
+    credentials: true // If using cookies or sessions
 }));
-// MySQL connection
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',         // Your MySQL username
-    password: process.env.DB_PASSWORD, // Your MySQL password
-    database: process.env.DB_NAME    // Name of your database
-});
 
+const connection = mysql.createConnection(process.env.DATABASE_URL);
+/*MySQL connection
+const connection = mysql.createConnection({
+    host: process.env.MYSQLHOST,         // Your MySQL host
+    user: process.env.MYSQLUSER,         // Your MySQL username
+    password: process.env.MYSQLPASSWORD, // Your MySQL password
+    database: process.env.MYSQLDATABASE   // Name of your database
+});
+*/
 // Connect to MySQL
 connection.connect(err => {
     if (err) {
