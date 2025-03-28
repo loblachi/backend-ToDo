@@ -39,10 +39,10 @@ app.use(express.json());
 // Route to handle task form data
 app.post('/tasks', (req, res) => {
     const {id, task, description, deadline, is_completed, created_at, priority } = req.body;
-     
+     console.log( id, task, description, deadline, is_completed, created_at, priority );
     const query = `
         INSERT INTO tasks (id,task, description, deadline, is_completed, created_at, priority)
-        VALUES (?, ?, STR_TO_DATE(?, '%Y-%m-%d'), ?, STR_TO_DATE(?, '%Y-%m-%d'), ?);
+        VALUES (?,?, ?, STR_TO_DATE(?, '%Y-%m-%d'), ?, STR_TO_DATE(?, '%Y-%m-%d'), ?);
     `;
 
     const values = [
