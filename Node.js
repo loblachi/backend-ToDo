@@ -14,7 +14,7 @@ app.use(cors({
 
 const connection = mysql.createConnection({
     uri: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: true } // Some hosts require SSL
+    ssl: { rejectUnauthorized: false } // Some hosts require SSL
 });
 /*MySQL connection
 const connection = mysql.createConnection({
