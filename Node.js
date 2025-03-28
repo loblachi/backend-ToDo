@@ -1,6 +1,6 @@
 // server.js
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const cors = require('cors');  // Import the cors package
 const app = express();
 const port = 3000;
@@ -12,7 +12,10 @@ app.use(cors({
     credentials: true // If using cookies or sessions
 }));
 
-const connection = mysql.createConnection(process.env.DATABASE_URL);
+const connection = mysql.createConnection({
+    uri: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: true } // Some hosts require SSL
+});
 /*MySQL connection
 const connection = mysql.createConnection({
     host: process.env.MYSQLHOST,         // Your MySQL host
