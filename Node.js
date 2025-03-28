@@ -14,7 +14,7 @@ app.use(cors({
 
 const connection = mysql.createConnection({
     uri: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false } // Some hosts require SSL
+    ssl: { rejectUnauthorized: true } // Some hosts require SSL
 });
 /*MySQL connection
 const connection = mysql.createConnection({
@@ -38,15 +38,15 @@ app.use(express.json());
 
 // Route to handle task form data
 app.post('/tasks', (req, res) => {
-    const { task, description, deadline, is_completed, created_at, priority } = req.body;
+    const {id, task, description, deadline, is_completed, created_at, priority } = req.body;
      
     const query = `
-        INSERT INTO tasks (task, description, deadline, is_completed, created_at, priority)
+        INSERT INTO tasks (id,task, description, deadline, is_completed, created_at, priority)
         VALUES (?, ?, STR_TO_DATE(?, '%Y-%m-%d'), ?, STR_TO_DATE(?, '%Y-%m-%d'), ?);
     `;
 
     const values = [
-        
+        id,
         task,
         description,
         deadline,
